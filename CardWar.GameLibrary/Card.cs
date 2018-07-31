@@ -19,26 +19,7 @@ namespace CardWar.GameLibrary
             _suit = suit;
         }
 
-        public bool CompareTo(Card c)
-        {
-            bool isHigherValue = false;
-
-            if (this.Face > c.Face)
-            {
-                isHigherValue = true;
-            }
-            else if (this.Face == c.Face)
-            {
-                if (this.Suit > c.Suit)
-                {
-                    isHigherValue = true;
-                }
-            }
-
-            return isHigherValue;
-        }
-
-        public string HumanReadable()
+        public override string ToString()
         {
             string face = Enum.GetName(typeof(Card.Faces), Face);
             string suit = Enum.GetName(typeof(Card.Suits), Suit);
@@ -76,6 +57,25 @@ namespace CardWar.GameLibrary
             }
 
             return value;
+        }
+
+        public bool CompareTo(Card c)
+        {
+            bool isHigherValue = false;
+
+            if (this.Face > c.Face)
+            {
+                isHigherValue = true;
+            }
+            else if (this.Face == c.Face)
+            {
+                if (this.Suit > c.Suit)
+                {
+                    isHigherValue = true;
+                }
+            }
+
+            return isHigherValue;
         }
     }
 }
