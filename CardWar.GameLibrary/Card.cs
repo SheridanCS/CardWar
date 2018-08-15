@@ -27,9 +27,9 @@ namespace CardWar.GameLibrary
             return $"{face} of {suit}";
         }
 
-        public int PointValue()
+        public uint PointValue()
         {
-            int value = 0;
+            uint value = 0;
 
             switch (Face)
             {
@@ -42,7 +42,7 @@ namespace CardWar.GameLibrary
                 case Faces.Eight:
                 case Faces.Nine:
                 case Faces.Ten:
-                    value = (int)Face;
+                    value = (uint)Face;
                     break;
                 case Faces.Jack:
                 case Faces.Queen:
