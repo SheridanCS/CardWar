@@ -25,10 +25,12 @@ namespace CardWar
     public sealed partial class MainPage : Page
     {
         public Deck deck;
+        public Scoreboard scoreboard;
 
         public MainPage()
         {
             this.InitializeComponent();
+            scoreboard = new Scoreboard();
             deck = Deck.GetInstance();
             deck.Shuffle();
 
@@ -39,8 +41,9 @@ namespace CardWar
                 {
                     Card c1 = deck.DrawCard();
                     Card c2 = deck.DrawCard();
+                    scoreboard.Update(c1, c2);
 
-                    TmpMessage.Text += $"C1: {c1.ToString()} (Value - {c1.PointValue()}), C2: {c2.ToString()} (Value - {c2.PointValue()}). C1 Higher Value? {c1.CompareTo(c2)}\n";
+                    TmpMessage.Text += $"C1: {c1.ToString()}, C2: {c2.ToString()}\tScore: P1 - {scoreboard.PlayerScore} | P2 - {scoreboard.ComputerScore}\n";
                 } catch (Exception)
                 {
                     emptyDeck = true;
