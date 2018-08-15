@@ -24,14 +24,14 @@
         </Grid>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Cards App" FontSize="30px" Margin="0,50,0,0"></TextBlock>
         <StackPanel VerticalAlignment="Top" Margin="0,150, 0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="Card0" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick,">
-                <Image Source="Assets/Cards/card_back.png"/>
+            <Button Name="Card0" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick">
+                <Image Name="Img0" Source="Assets/Cards/card_back.png"/>
             </Button>
             <Button Name="Card1" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick">
-                <Image Source="Assets/Cards/card_back.png"/>
+                <Image Name="Img1" Source="Assets/Cards/card_back.png"/>
             </Button>
             <Button Name="Card2" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick">
-                <Image Source="Assets/Cards/card_back.png"/>
+                <Image Name="Img2" Source="Assets/Cards/card_back.png"/>
             </Button>
         </StackPanel>
         <Button Content="Shuffle" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Click="Shuffle"/>
