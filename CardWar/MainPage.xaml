@@ -34,7 +34,7 @@
                 <Image Name="Img2" Source="Assets/Cards/card_back.png"/>
             </Button>
         </StackPanel>
-        <Button Content="Shuffle" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Click="Shuffle"/>
+        <Button Name="BtnShuffle" Content="Shuffle" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Click="Shuffle"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0, 100">
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical" Margin="100, 0">
                 <TextBlock Text="Your Card" HorizontalAlignment="Center" FontSize="20px"/>

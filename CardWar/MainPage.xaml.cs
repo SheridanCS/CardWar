@@ -50,6 +50,7 @@ namespace CardWar
         private void NewGame() {
             scoreboard = new Scoreboard();
             deck = Deck.GetInstance();
+            deck.Reset();
             deck.Shuffle();
             List<Card> userHand = new List<Card>();
             List<Card> compHand = new List<Card>();
@@ -66,10 +67,13 @@ namespace CardWar
             Card[] p_hand = m_player.ShowHand();
             for (int i = 0; i < showcase.Count; ++i) {
                 Image img = (Image)FindName("Img"+i);
-                if (p_hand[i] == null) {
-                    img.Source = new BitmapImage(new Uri("ms-appx:///CardWar/Assets/Cards/card_blank.png"));
-                } else {
+                try
+                {
                     img.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{p_hand[i].ToString()}.png"));
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Cards/card_blank.png"));
                 }
             }
         }
@@ -77,9 +81,9 @@ namespace CardWar
         private void Turn(Card card) {
             Image p_card = (Image)FindName("p_Card");
             Image c_card = (Image)FindName("c_Card");
-            p_card.Source = new BitmapImage(new Uri($"ms-appx:///CardWar/Assets/Cards/{card.ToString()}.png"));
+            p_card.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{card.ToString()}.png"));
             Card compCard = m_comp.PlayCard();
-            c_card.Source = new BitmapImage(new Uri($"ms-appx:///CardWar/Assets/Cards/{compCard.ToString()}.png"));
+            c_card.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{compCard.ToString()}.png"));
 
             scoreboard.Update(card, compCard);
 
@@ -100,18 +104,25 @@ namespace CardWar
             TextBlock c_Overall = (TextBlock)FindName("c_Overall");
             p_Overall.Text = $"Overall score: {scoreboard.PlayerScore}";
             c_Overall.Text = $"Overall score: {scoreboard.ComputerScore}";
+
+            if (deck.Count() > 0)
+            {
+                m_player.DrawCard(deck.DrawCard());
+                m_comp.DrawCard(deck.DrawCard());
+            }
+            RenderCards();
         }
 
         private void CardClick(Object sender, RoutedEventArgs e) {
             Button btn = (Button)sender;
             switch(btn.Name) {
-                case "Card1":
+                case "Card0":
                     Turn(m_player.PlayCard(0));
                     break;
-                case "Card2":
+                case "Card1":
                     Turn(m_player.PlayCard(1));
                     break;
-                case "Card3":
+                case "Card2":
                     Turn(m_player.PlayCard(2));
                     break;
                 default:
@@ -121,7 +132,14 @@ namespace CardWar
         }
 
         private void Shuffle(Object sender, RoutedEventArgs e) {
-            NewGame();
+            if (m_shuffles < 2)
+            {
+                m_shuffles++;
+                NewGame();
+            } else
+            {
+                BtnShuffle.IsEnabled = false;
+            }
         }
 
         private void Restart(Object sender, RoutedEventArgs e) {

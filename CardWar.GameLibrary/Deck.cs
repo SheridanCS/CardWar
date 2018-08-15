@@ -54,6 +54,11 @@ namespace CardWar.GameLibrary
             _cards = new Stack<Card>(tmpDeck);
         }
 
+        public int Count()
+        {
+            return _cards.Count;
+        }
+
         public Card DrawCard()
         {
             if (_cards.Count == 0)

@@ -6,7 +6,6 @@ namespace CardWar.GameLibrary
     public class Player
     {
         private List<Card> _hand;
-        private int _emptySlot;
         private Random rand;
 
         public Player(List<Card> hand)
@@ -17,7 +16,7 @@ namespace CardWar.GameLibrary
 
         public void DrawCard(Card c)
         {
-            _hand.Insert(_emptySlot, c);
+            _hand.Add(c);
         }
 
         public Card PlayCard(int index)
@@ -25,13 +24,12 @@ namespace CardWar.GameLibrary
             Card c = _hand[index];
 
             _hand.RemoveAt(index);
-            _emptySlot = index;
 
             return c;
         }
 
         public Card PlayCard() {
-            return PlayCard(rand.Next(3));
+            return PlayCard(rand.Next(_hand.Count));
         }
 
         public Card[] ShowHand()
