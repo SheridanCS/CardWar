@@ -24,7 +24,7 @@ namespace CardWar.GameLibrary
             string face = Enum.GetName(typeof(Card.Faces), Face);
             string suit = Enum.GetName(typeof(Card.Suits), Suit);
 
-            return $"{face} of {suit}";
+            return $"{face}Of{suit}";
         }
 
         public uint PointValue()
