@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,29 +27,70 @@ namespace CardWar
     {
         public Deck deck;
         public Scoreboard scoreboard;
+        public int m_shuffles;
+        public List<Button> showcase;
 
         public MainPage()
         {
             this.InitializeComponent();
+
+            for (int i = 0; i < 3; ++i) {
+                Button btn = (Button)FindName("Card"+i);
+                showcase.Add(btn);
+            }
+
+            NewGame();
+        }
+
+        private void NewGame() {
             scoreboard = new Scoreboard();
             deck = Deck.GetInstance();
             deck.Shuffle();
+            RenderCards();
+        }
 
-            bool emptyDeck = false;
-            do
-            {
-                try
-                {
-                    Card c1 = deck.DrawCard();
-                    Card c2 = deck.DrawCard();
-                    scoreboard.Update(c1, c2);
+        private void RenderCards() {
+            foreach(Button i in showcase) {
 
-                    //TmpMessage.Text += $"C1: {c1.ToString()} (Value - {c1.PointValue()}), C2: {c2.ToString()} (Value - {c2.PointValue()}). C1 Higher Value? {c1.CompareTo(c2)}\n";
-                } catch (Exception)
-                {
-                    emptyDeck = true;
+            }
+        }
+
+        private void CardClick(Object sender, RoutedEventArgs e) {
+            Button btn = (Button)sender;
+            switch(btn.Name) {
+                case "Card1":
+                    Debug.WriteLine("Test");
+                    break;
+                case "Card2":
+                    Debug.WriteLine("Test1");
+                    break;
+                case "Card3":
+                    Debug.WriteLine("Test2");
+                    break;
+                default:
+                    Debug.WriteLine("Test3");
+                    break;
+            }
+        }
+
+        private void Shuffle(Object sender, RoutedEventArgs e) {
+            if (m_shuffles < 2) {
+                // Shuffle deck
+                ++m_shuffles;
+                if (m_shuffles >= 3) {
+                    Button shufBtn = (Button)sender;
+                    shufBtn.IsEnabled = false;
                 }
-            } while (!emptyDeck);
+            }
+        }
+
+        private void Restart(Object sender, RoutedEventArgs e) {
+            deck.Reset();
+            scoreboard.Reset();
+            m_shuffles = 0;
+            Grid r_grid = (Grid)((Button)sender).Parent;
+            r_grid.Visibility = Visibility.Collapsed;
+            NewGame();
         }
     }
 }
