@@ -55,6 +55,7 @@ namespace CardWar
             List<Card> userHand = new List<Card>();
             List<Card> compHand = new List<Card>();
             for (int i = 0; i < 3; ++i) {
+                showcase[i].IsEnabled = true;
                 userHand.Add(deck.DrawCard());
                 compHand.Add(deck.DrawCard());
             }
@@ -73,6 +74,7 @@ namespace CardWar
                 }
                 catch (IndexOutOfRangeException e)
                 {
+                    showcase[i].IsEnabled = false;
                     img.Source = new BitmapImage(new Uri("ms-appx:///Assets/Cards/card_blank.png"));
                 }
             }
@@ -111,10 +113,27 @@ namespace CardWar
                 m_comp.DrawCard(deck.DrawCard());
             }
             RenderCards();
+            if (m_player.ShowHand().Length == 0) {
+                EndGame();
+            }
+        }
+
+        private void EndGame() {
+            GameOverScreen.Visibility = Visibility.Visible;
+            if (scoreboard.PlayerScore > scoreboard.ComputerScore) {
+                p_Condition.Text = "You Win!";
+            } else if (scoreboard.ComputerScore > scoreboard.PlayerScore) {
+                p_Condition.Text = "You Lose!";
+            } else {
+                p_Condition.Text = "Tied!";
+            }
+            c_OverallScore.Text = $"Overall score: {scoreboard.ComputerScore}";
+            p_OverallScore.Text = $"Overall score: {scoreboard.PlayerScore}";
         }
 
         private void CardClick(Object sender, RoutedEventArgs e) {
             Button btn = (Button)sender;
+            BtnShuffle.IsEnabled = false;
             switch(btn.Name) {
                 case "Card0":
                     Turn(m_player.PlayCard(0));
@@ -136,7 +155,8 @@ namespace CardWar
             {
                 m_shuffles++;
                 NewGame();
-            } else
+            }
+            if (m_shuffles == 2)
             {
                 BtnShuffle.IsEnabled = false;
             }
@@ -146,8 +166,12 @@ namespace CardWar
             deck.Reset();
             scoreboard.Reset();
             m_shuffles = 0;
-            Grid r_grid = (Grid)((Button)sender).Parent;
-            r_grid.Visibility = Visibility.Collapsed;
+            GameOverScreen.Visibility = Visibility.Collapsed;
+            p_Score.Text = "Turn score: 0";
+            c_Score.Text = "Turn score: 0";
+            p_Overall.Text = "Overall score: 0";
+            c_Overall.Text = "Overall score: 0";
+            BtnShuffle.IsEnabled = true;
             NewGame();
         }
     }

@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid x:Name="GameOverScreen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="350" Visibility="Collapsed">
+        <Grid x:Name="GameOverScreen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="350" Visibility="Collapsed" Background="#FFA8A8A8" BorderBrush="#FF5E5E5E" FocusVisualSecondaryBrush="White" Canvas.ZIndex="1">
             <TextBlock Text="Game Over" FontSize="20px" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
             <TextBlock x:Name="p_Condition" Text="You Win!" FontSize="18px" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 80"/>
             <Button Content="Restart" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Restart"/>
