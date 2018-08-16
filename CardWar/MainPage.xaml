@@ -9,10 +9,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid x:Name="GameOverScreen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="350" Visibility="Collapsed">
+        <Grid x:Name="GameOverScreen" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="350" Visibility="Collapsed" Background="#FFA8A8A8" BorderBrush="#FF5E5E5E" FocusVisualSecondaryBrush="White" Canvas.ZIndex="1">
             <TextBlock Text="Game Over" FontSize="20px" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10"/>
             <TextBlock x:Name="p_Condition" Text="You Win!" FontSize="18px" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0, 80"/>
-            <Button Content="Restart" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Button Content="Restart" Width="100" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Restart"/>
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0, 50">
                 <StackPanel HorizontalAlignment="Left" Margin="20,0">
                     <TextBlock x:Name="p_OverallScore" Text="Player Score: 0" FontSize="18px"/>
@@ -24,21 +24,27 @@
         </Grid>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Cards App" FontSize="30px" Margin="0,50,0,0"></TextBlock>
         <StackPanel VerticalAlignment="Top" Margin="0,150, 0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="Card1" Content="Card1" Width="125" Height="225" Margin="30"></Button>
-            <Button Name="Card2" Content="Card2" Width="125" Height="225" Margin="30"></Button>
-            <Button Name="Card3" Content="Card2" Width="125" Height="225" Margin="30"></Button>
+            <Button Name="Card0" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick">
+                <Image Name="Img0" Source="Assets/Cards/card_back.png"/>
+            </Button>
+            <Button Name="Card1" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick">
+                <Image Name="Img1" Source="Assets/Cards/card_back.png"/>
+            </Button>
+            <Button Name="Card2" Width="130" Height="225" Margin="30" Background="Transparent" Click="CardClick">
+                <Image Name="Img2" Source="Assets/Cards/card_back.png"/>
+            </Button>
         </StackPanel>
-        <Button Name="Shuffle" Content="Shuffle" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100"/>
+        <Button Name="BtnShuffle" Content="Shuffle" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="100" Click="Shuffle"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Margin="0, 100">
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical" Margin="100, 0">
                 <TextBlock Text="Your Card" HorizontalAlignment="Center" FontSize="20px"/>
-                <Image x:Name="p_Card" Width="125" Height="225" Margin="10"/>
+                <Image x:Name="p_Card" Width="125" Height="225" Margin="10" Source="Assets/Cards/card_back.png"/>
                 <TextBlock x:Name="p_Score" Text="Turn score: 0" FontSize="20px"/>
                 <TextBlock x:Name="p_Overall" Text="Overall score: 0" FontSize="20px"/>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Vertical" Margin="100, 0">
                 <TextBlock HorizontalAlignment="Center" Text="Computer's Card" FontSize="20px"></TextBlock>
-                <Image x:Name="c_Card" Width="125" Height="225" Margin="10"/>
+                <Image x:Name="c_Card" Width="125" Height="225" Margin="10" Source="Assets/Cards/card_back.png"/>
                 <TextBlock x:Name="c_Score" Text="Turn score: 0" FontSize="20px"/>
                 <TextBlock x:Name="c_Overall" Text="Overall score: 0" FontSize="20px"/>
             </StackPanel>
