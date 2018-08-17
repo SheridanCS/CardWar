@@ -48,6 +48,8 @@ namespace CardWar
         }
 
         private void NewGame() {
+            p_Card.Source = new BitmapImage(new Uri("ms-appx:///Assets/Cards/card_back.png"));
+            c_Card.Source = new BitmapImage(new Uri("ms-appx:///Assets/Cards/card_back.png"));
             scoreboard = new Scoreboard();
             deck = Deck.GetInstance();
             deck.Reset();
@@ -81,18 +83,13 @@ namespace CardWar
         }
 
         private void Turn(Card card) {
-            Image p_card = (Image)FindName("p_Card");
-            Image c_card = (Image)FindName("c_Card");
-            p_card.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{card.ToString()}.png"));
             Card compCard = m_comp.PlayCard();
-            c_card.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{compCard.ToString()}.png"));
+            p_Card.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{card.ToString()}.png"));
+            c_Card.Source = new BitmapImage(new Uri($"ms-appx:///Assets/Cards/{compCard.ToString()}.png"));
 
             scoreboard.Update(card, compCard);
 
             uint turnScore = scoreboard.Score(card, compCard);
-
-            TextBlock p_Score = (TextBlock)FindName("p_Score");
-            TextBlock c_Score = (TextBlock)FindName("c_Score");
 
             if (card.CompareTo(compCard)) {
                 p_Score.Text = $"Turn score: {turnScore}";
@@ -102,8 +99,6 @@ namespace CardWar
                 c_Score.Text = $"Turn score: {turnScore}";
             }
 
-            TextBlock p_Overall = (TextBlock)FindName("p_Overall");
-            TextBlock c_Overall = (TextBlock)FindName("c_Overall");
             p_Overall.Text = $"Overall score: {scoreboard.PlayerScore}";
             c_Overall.Text = $"Overall score: {scoreboard.ComputerScore}";
 
